@@ -55,7 +55,11 @@ var transpile = (function() {
     var options = this.babelOptions || {};
     options.modules = 'system';
     options.sourceMap = 'inline';
-    options.inputSourceMap = load.metadata.sourceMap;
+    if (typeof load.metadata.sourceMap == 'string') {
+      options.inputSourceMap = JSON.parse(load.metadata.sourceMap);
+    } else {
+      options.inputSourceMap = load.metadata.sourceMap;
+    }
     options.filename = load.address;
     options.code = true;
     options.ast = false;
